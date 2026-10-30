@@ -1,0 +1,38 @@
+APP ICON, LOGO AND SPLASH - SETUP
+
+FILES (already in assets/icon/)
+  app_icon.png            1024x1024, full square, used for the launcher icon
+  app_icon_foreground.png 1024x1024, transparent, Android adaptive icon foreground
+  splash_logo.png         1024x1024, transparent, logo for the splash screens
+
+To replace the artwork later, overwrite these three files with the same names
+and sizes, then run the two commands in step 2.
+
+STEP 1 - Get packages
+  flutter pub get
+
+STEP 2 - Generate icons and native splash
+  dart run flutter_launcher_icons
+  dart run flutter_native_splash:create
+
+  flutter_launcher_icons writes the Android mipmap icons, the adaptive icon
+  and the iOS AppIcon set. flutter_native_splash writes the splash shown
+  before Flutter starts (Android and iOS).
+
+STEP 3 - Clean rebuild
+  flutter clean
+  flutter pub get
+  flutter run
+
+  Uninstall the old app first, or the launcher may keep showing the old icon.
+
+WHAT EACH SETTING DOES (pubspec.yaml)
+  image_path               source icon for Android and iOS
+  adaptive_icon_background solid color behind the Android adaptive icon
+  adaptive_icon_foreground logo layer placed on top of that color
+  remove_alpha_ios         iOS does not accept transparent pixels in the icon
+  flutter_native_splash    color = background, image = logo shown at the centre
+
+REQUIREMENTS
+  Source images should be square PNGs at 1024x1024 or larger.
+  The app must have android/ and ios/ folders (created by flutter create).

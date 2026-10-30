@@ -1,0 +1,23 @@
+SETUP (after creating the project with: flutter create qr_generator)
+
+1. Replace pubspec.yaml and the lib/ folder with the ones in this project.
+2. Run: flutter pub get
+
+ANDROID - android/app/src/main/AndroidManifest.xml
+  Inside <manifest>, above <application>, add ONE line so saving works on
+  Android 9 and older (Android 10+ needs no permission for gallery saves):
+
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+      android:maxSdkVersion="28" />
+
+ANDROID - minSdk
+  gal requires minSdkVersion 24 or higher. In android/app/build.gradle(.kts)
+  set minSdk = 24 (or flutter.minSdkVersion if it is already 24+).
+
+IOS - ios/Runner/Info.plist
+  Add these keys inside the top <dict>, otherwise saving will crash on iOS:
+
+  <key>NSPhotoLibraryAddUsageDescription</key>
+  <string>Save generated QR codes to your photo library.</string>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>Save generated QR codes to your photo library.</string>

@@ -1,0 +1,58 @@
+name: qr_generator
+description: Create QR codes from text, numbers or links and save them to your gallery.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State management + navigation
+  get: ^4.6.6
+
+  # QR code rendering on screen
+  qr_flutter: ^4.1.0
+
+  # Save images to the device gallery (Android MediaStore / iOS Photos)
+  gal: ^2.3.1
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+  # Generates app icons for Android and iOS from assets/icon/app_icon.png
+  flutter_launcher_icons: ^0.14.1
+
+  # Generates the native splash screen (shown before Flutter starts)
+  flutter_native_splash: ^2.4.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/icon/
+
+# ---------- App icon ----------
+# Run after any change: dart run flutter_launcher_icons
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: assets/icon/app_icon.png
+  adaptive_icon_background: "#0F9D8A"
+  adaptive_icon_foreground: assets/icon/app_icon_foreground.png
+  remove_alpha_ios: true
+
+# ---------- Native splash ----------
+# Run after any change: dart run flutter_native_splash:create
+flutter_native_splash:
+  color: "#F4F7F6"
+  image: assets/icon/splash_logo.png
+  android_12:
+    color: "#F4F7F6"
+    image: assets/icon/splash_logo.png
