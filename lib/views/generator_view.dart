@@ -7,18 +7,13 @@ import '../common_widgets/common_text.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_strings.dart';
 import '../controllers/generator_controller.dart';
+import '../routes/app_routes.dart';
 import '../utils/input_detector.dart';
+import '../utils/qr_levels.dart';
 import '../utils/size_utils.dart';
 
 class GeneratorView extends GetView<GeneratorController> {
   const GeneratorView({super.key});
-
-  static const _levels = <(int, String)>[
-    (QrErrorCorrectLevel.L, AppStrings.levelLow),
-    (QrErrorCorrectLevel.M, AppStrings.levelMedium),
-    (QrErrorCorrectLevel.Q, AppStrings.levelQuartile),
-    (QrErrorCorrectLevel.H, AppStrings.levelHigh),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +21,18 @@ class GeneratorView extends GetView<GeneratorController> {
       appBar: AppBar(
         title: const CommonText(AppStrings.appName,
             size: 20, weight: FontWeight.w700),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.history_rounded),
+            tooltip: AppStrings.historyTooltip,
+            onPressed: () => Get.toNamed(AppRoutes.history),
+          ),
+          IconButton(
+            icon: const Icon(Icons.settings_outlined),
+            tooltip: AppStrings.settingsTooltip,
+            onPressed: () => Get.toNamed(AppRoutes.settings),
+          ),
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -148,7 +155,7 @@ class GeneratorView extends GetView<GeneratorController> {
               spacing: context.wp(2),
               runSpacing: context.wp(2),
               children: [
-                for (final (level, label) in _levels)
+                for (final (level, label) in qrErrorLevels)
                   ChoiceChip(
                     label: Text(label),
                     selected: controller.errorLevel.value == level,
@@ -185,10 +192,10 @@ class _TypeChip extends StatelessWidget {
   Widget build(BuildContext context) {
     if (type == QrContentType.empty) return const SizedBox.shrink();
 
-    final (icon, label) = switch (type) {
-      QrContentType.link => (Icons.link_rounded, AppStrings.typeLink),
-      QrContentType.number => (Icons.pin_rounded, AppStrings.typeNumber),
-      _ => (Icons.notes_rounded, AppStrings.typeText),
+    final icon = switch (type) {
+      QrContentType.link => Icons.link_rounded,
+      QrContentType.number => Icons.pin_rounded,
+      _ => Icons.notes_rounded,
     };
 
     return Container(
@@ -205,7 +212,7 @@ class _TypeChip extends StatelessWidget {
         children: [
           Icon(icon, size: 16, color: AppColors.primary),
           const SizedBox(width: 6),
-          CommonText(label,
+          CommonText(AppStrings.typeLabel(type),
               size: 13, weight: FontWeight.w600, color: AppColors.primaryDark),
         ],
       ),

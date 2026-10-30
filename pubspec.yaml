@@ -19,6 +19,9 @@ dependencies:
   # Save images to the device gallery (Android MediaStore / iOS Photos)
   gal: ^2.3.1
 
+  # Saves the user's saved codes and settings on the device
+  shared_preferences: ^2.3.2
+
   cupertino_icons: ^1.0.8
 
 dev_dependencies:
@@ -42,7 +45,7 @@ flutter:
 # Run after any change: dart run flutter_launcher_icons
 flutter_launcher_icons:
   android: true
-  ios: false
+  ios: true
   image_path: assets/icon/app_icon.png
   adaptive_icon_background: "#0F9D8A"
   adaptive_icon_foreground: assets/icon/app_icon_foreground.png
